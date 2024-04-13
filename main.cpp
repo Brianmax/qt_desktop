@@ -1,14 +1,13 @@
-#include "QGuiApplication"
-#include "QtQml/QQmlApplicationEngine"
+#include "QCoreApplication"
+#include "iostream"
+#include "string"
+#include "QTextStream"
+#include "include/Counter.h"
+using namespace std;
 int main(int argc, char *argv[]) {
-    QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/untitled/qml/main.qml"_qs);
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl){
-        if(!obj and url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-    engine.load(url);
-    return app.exec();
+    Counter a, b;
+    QObject::connect(&a, &Counter::valueChanged,
+                     &b, &Counter::setValue);
+    a.setValue(12);     // a.value() == 12, b.value() == 12
+    b.setValue(48);     // a.value() == 12, b.value() == 48
 }

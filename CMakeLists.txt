@@ -13,7 +13,10 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(untitled main.cpp)
+add_executable(untitled main.cpp
+        src/Counter.cpp
+        include/Counter.h
+)
 target_link_libraries(untitled
         Qt::Core
         Qt::Gui
